@@ -102,9 +102,7 @@ namespace WSRDemo2019.Leads
             {
                 MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
-
         private void AddNewLead(object sender, RoutedEventArgs e)
         {
             AddLeadDialog addLead = new AddLeadDialog();
