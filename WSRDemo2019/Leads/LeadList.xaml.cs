@@ -45,6 +45,7 @@ namespace WSRDemo2019.Leads
                 this.categories.Add(new CategoryLead { Наименование = "Все статусы" });
                 this.Status.ItemsSource = this.categories.OrderBy(i => i.ID);
                 this.Status.SelectedIndex = 1;
+                
                 this.Users.ItemsSource = this.users.OrderBy(i => i.ID);
                 var index = users.IndexOf(context.User.Where(i => i.ID == user.ID).FirstOrDefault());
                 this.Users.SelectedIndex = ++index;

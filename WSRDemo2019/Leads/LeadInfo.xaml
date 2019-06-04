@@ -7,8 +7,95 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LeadInfo">
-
+    <Page.Resources>
+        <Style TargetType="ComboBox" x:Key="LockCombo">
+            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Tahoma"></Setter>
+            <Setter Property="Foreground" Value="#FF243238"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Lead.Статус}" Value="2">
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="CheckBox" x:Key="LockChek">
+            <Setter Property="FontSize" Value="10"></Setter>
+            <Setter Property="FontFamily" Value="Tahoma"></Setter>
+            <Setter Property="Foreground" Value="#FF243238"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Calls.Count}" Value="0">
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Lead.Статус}" Value="2">
+                    <Setter Property="IsEnabled" Value="False"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Header="Данные Лида"  Height="auto" BorderBrush="Black">
+                <ScrollViewer >
+                    <StackPanel Name="LeadInform">
+                        <CheckBox x:Name="Acitvated" Style="{StaticResource LockChek}">активен</CheckBox>
+                        <GroupBox Header="Дата создания">
+                            <TextBox IsEnabled="False" Name="Date"></TextBox>
+                        </GroupBox>
+                        <GroupBox Header="Телефон">
+                            <TextBox x:Name="Phone">
+                            </TextBox>
+                        </GroupBox>
+                        <GroupBox Header="Требование к навыкам" BorderBrush="Black" Height="auto">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Навыки Продаж">
+                                    <TextBox x:Name="Sell"></TextBox>
+                                </GroupBox>
+                                <GroupBox Grid.Column="1" Header="Возражения">
+                                    <TextBox x:Name="Work"></TextBox>
+                                </GroupBox>
+                                <GroupBox Grid.Column="2" Header="Продукты компании">
+                                    <TextBox x:Name="Items"></TextBox>
+                                </GroupBox>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Пользователь">
+                            <ComboBox Name="User" Style="{StaticResource LockCombo}" DisplayMemberPath="Фамилия">
+                            </ComboBox>
+                        </GroupBox>
+                        <GroupBox Header="коментарий">
+                            <TextBox x:Name="Comment" TextWrapping="Wrap">
+                            </TextBox>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+            <ListBox Grid.Column="1" Name="CallList">
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button>Добавить</Button>
+            <Button Grid.Column="2"
+                    Click="SaveChanges"
+                    Name="SaveButton">
+                Сохранить изменения</Button>
+        </Grid>
     </Grid>
 </Page>

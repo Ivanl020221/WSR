@@ -20,13 +20,82 @@ namespace WSRDemo2019.Leads
     /// </summary>
     public partial class LeadInfo : Page
     {
-        Lead Lead;
+        user2Entities context = new user2Entities();
+
+        Lead Lead { get; set; }
+
+        List<string> Calls { get; set; }
 
         public LeadInfo(Lead lead)
         {
-            InitializeComponent();
             this.Lead = lead;
+            InitializeComponent();
+            LoadData();
+        }
 
+        public void LoadData()
+        {
+            try
+            {
+                this.User.ItemsSource = context.User.ToList();
+                this.Date.Text = Lead.ДатаВремяСозданияЛида.ToLongDateString();
+                this.Phone.Text = Lead.НомерТелефонаКлиента.ToString();
+                this.Sell.Text = Lead.ОвладениеНавыкамиПродаж.ToString();
+                this.Work.Text = Lead.РаботаСВозражениями.ToString();
+                this.Items.Text = Lead.ЗнаниеПродуктовКомпании.ToString();
+                var User = context.User.Where(i => i.ID == Lead.Логин);
+                this.User.SelectedIndex = context.User.ToList().IndexOf(User.FirstOrDefault());
+                this.User.IsEnabled = Lead.Статус == 1 ? true : false;
+                this.Acitvated.IsChecked = Lead.Статус == 1 ? true : false;
+                this.Comment.Text = Lead.Коментарий;
+                this.Calls = context.
+                    Call.
+                    Where(i => i.Лид == Lead.ID).
+                    Select(i => i.Lead.НомерТелефонаКлиента + "(" + i.User.Фамилия + ")").
+                    ToList();
+                this.Acitvated.IsEnabled = Calls.Count > 0 ? true : false;
+                this.Acitvated.IsEnabled = Lead.Статус == 1 ? true : false;
+                this.LeadInform.IsEnabled = Lead.Статус == 1 ? true : false;
+                this.SaveButton.IsEnabled = Lead.Статус == 1 ? true : false;
+                this.CallList.ItemsSource = Calls;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SaveChanges(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var lead = context.Lead.Where(i => i.ID == Lead.ID).FirstOrDefault();
+                if (long.TryParse(Phone.Text, out long phone) &&
+                    long.TryParse(Sell.Text, out long skill) &&
+                    long.TryParse(Work.Text, out long work) &&
+                    long.TryParse(Items.Text, out long item) &&
+                    User.SelectedItem is User user &&
+                    skill <= 1 &&
+                    work <= 1 &&
+                    item <= 1&&
+                    skill >= 0 &&
+                    work >= 0 &&
+                    item >= 0)
+                {
+                    Lead.Статус = this.Acitvated.IsChecked.Value ? 1 : 2;
+                    lead.НомерТелефонаКлиента = phone;
+                    lead.ОвладениеНавыкамиПродаж = skill;
+                    lead.РаботаСВозражениями = work;
+                    lead.Логин = user.ID;
+                    lead.Коментарий = Comment.Text;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
     }
 }
