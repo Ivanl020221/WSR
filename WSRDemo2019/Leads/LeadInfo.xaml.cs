@@ -37,6 +37,7 @@ namespace WSRDemo2019.Leads
         {
             try
             {
+                context = new user2Entities();
                 this.User.ItemsSource = context.User.ToList();
                 this.Date.Text = Lead.ДатаВремяСозданияЛида.ToLongDateString();
                 this.Phone.Text = Lead.НомерТелефонаКлиента.ToString();
@@ -53,8 +54,7 @@ namespace WSRDemo2019.Leads
                     Where(i => i.Лид == Lead.ID).
                     Select(i => i.Lead.НомерТелефонаКлиента + "(" + i.User.Фамилия + ")").
                     ToList();
-                this.Acitvated.IsEnabled = Calls.Count > 0 ? true : false;
-                this.Acitvated.IsEnabled = Lead.Статус == 1 ? true : false;
+                this.Acitvated.IsEnabled = Calls.Count > 0 && Lead.Статус == 1 ? true : false;
                 this.LeadInform.IsEnabled = Lead.Статус == 1 ? true : false;
                 this.SaveButton.IsEnabled = Lead.Статус == 1 ? true : false;
                 this.CallList.ItemsSource = Calls;
@@ -71,9 +71,9 @@ namespace WSRDemo2019.Leads
             {
                 var lead = context.Lead.Where(i => i.ID == Lead.ID).FirstOrDefault();
                 if (long.TryParse(Phone.Text, out long phone) &&
-                    long.TryParse(Sell.Text, out long skill) &&
-                    long.TryParse(Work.Text, out long work) &&
-                    long.TryParse(Items.Text, out long item) &&
+                    decimal.TryParse(Sell.Text, out decimal skill) &&
+                    decimal.TryParse(Work.Text, out decimal work) &&
+                    decimal.TryParse(Items.Text, out decimal item) &&
                     User.SelectedItem is User user &&
                     skill <= 1 &&
                     work <= 1 &&
@@ -86,9 +86,16 @@ namespace WSRDemo2019.Leads
                     lead.НомерТелефонаКлиента = phone;
                     lead.ОвладениеНавыкамиПродаж = skill;
                     lead.РаботаСВозражениями = work;
+                    lead.ЗнаниеПродуктовКомпании = item;
                     lead.Логин = user.ID;
                     lead.Коментарий = Comment.Text;
                     context.SaveChanges();
+                    LoadData();
+                    MessageBox.Show("Сохранено", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Проверьте коректонсть данных", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
@@ -96,6 +103,15 @@ namespace WSRDemo2019.Leads
                 MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
+        }
+
+        private void AddNewLead(object sender, RoutedEventArgs e)
+        {
+            AddLeadDialog addLead = new AddLeadDialog();
+            if (addLead.ShowDialog().Value)
+            {
+                NavigationService.GoBack(); 
+            }
         }
     }
 }

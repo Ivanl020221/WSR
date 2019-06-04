@@ -147,7 +147,11 @@ namespace WSRDemo2019.Leads
 
         private void AddLead(object sender, RoutedEventArgs e)
         {
-
+            AddLeadDialog addLead = new AddLeadDialog();
+            if (addLead.ShowDialog().Value) 
+            {
+                LoadList();
+            }
         }
     }
 }
