@@ -1,0 +1,71 @@
+﻿<Page x:Class="WSRDemo2019.Leads.LeadList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WSRDemo2019.Leads"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+       Title="Список звонков">
+    <Page.Resources>
+        <Style x:Key="Lock" TargetType="Button">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="FontFamily" Value="Tahoma"></Setter>
+            <Setter Property="Foreground" Value="#FF243238"></Setter>
+            <Setter Property="Margin" Value="12"></Setter>
+            <Setter Property="Padding" Value="8"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=Calls,Path=SelectedIndex}" Value="-1">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Column="0" Header="Пользователи">
+                <ComboBox Name="Users" DropDownClosed="Selected"
+                          DisplayMemberPath="Фамилия"
+                          SelectedIndex="0"></ComboBox>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Header="Статус">
+                <ComboBox Name="Status" DropDownClosed="Selected"
+                          DisplayMemberPath="Наименование"
+                          SelectedIndex="0"></ComboBox>
+            </GroupBox>
+        </Grid>
+        <GroupBox Header="Лиды" Grid.Row="1" Height="auto">
+            <DataGrid IsReadOnly="True" x:Name="LeadsGrid"  AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding User.Фамилия}" Header="Пользователь" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding НомерТелефонаКлиента}" Header="Контактные данные" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding ЗнаниеПродуктовКомпании}" Header="Знание Продуктов Компании" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding ОвладениеНавыкамиПродаж}" Header="Овладение Навыками Продаж" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding РаботаСВозражениями}" Header="Работа С Возражениями" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding ДатаВремяСозданияЛида}" Header="дата создания лида" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding CategoryLead.Наименование}" Header="Категория" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Click="AddLead" IsEnabled="False">добавить</Button>
+            <Button Style="{StaticResource Lock}" Click="GoTo" IsEnabled="False">перейти</Button>
+            <Button Grid.Column="3" Background="#FFFF4A6D" Style="{StaticResource Lock}" IsEnabled="False" Click="RemoveCall">Удалить</Button>
+        </Grid>
+    </Grid>
+</Page>

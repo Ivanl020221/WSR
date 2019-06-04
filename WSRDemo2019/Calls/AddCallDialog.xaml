@@ -1,0 +1,53 @@
+﻿<Window x:Class="WSRDemo2019.Calls.AddCallDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WSRDemo2019.Calls"
+        xmlns:Forms ="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        mc:Ignorable="d"
+       Title="Добавить звонок" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <StackPanel>
+                <GroupBox Header="Дата/Время совершения звонка">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Name="Date"/>
+                        <WindowsFormsHost Grid.Column="1">
+                            <Forms:MaskedTextBox x:Name="TimeMask"/>
+                        </WindowsFormsHost>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Длительность разговора">
+                    <TextBox x:Name="LenghtCall"/>
+                </GroupBox>
+                <GroupBox Header="Лид">
+                    <ComboBox x:Name="LeadInfo" DisplayMemberPath="НомерТелефонаКлиента"/>
+                </GroupBox>
+                <GroupBox Header="Пользователь">
+                    <ComboBox x:Name="UserCall" DisplayMemberPath="Фамилия"/>
+                </GroupBox>
+                <GroupBox Header="Коментарий">
+                    <TextBox x:Name="Comment"/>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button IsDefault="True" Click="AddCall" >добавить</Button>
+            <Button Grid.Column="2" IsCancel="True">Отмена</Button>
+        </Grid>
+    </Grid>
+</Window>
