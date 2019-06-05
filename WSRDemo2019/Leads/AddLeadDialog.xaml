@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WSRDemo2019.Leads"
         mc:Ignorable="d"
-        Title="AddLeadDialog" Height="550" Width="600"
+        Title="добавить лид" Height="550" Width="600"
         MinHeight="550" MinWidth="600">
     <Grid>
         <Grid.RowDefinitions>

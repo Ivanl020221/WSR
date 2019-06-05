@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:WSRDemo2019.Leads"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-       Title="Список звонков">
+       Title="Список лидов">
     <Page.Resources>
         <Style x:Key="Lock" TargetType="Button">
             <Setter Property="FontSize" Value="12"></Setter>
