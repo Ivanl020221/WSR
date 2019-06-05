@@ -1,0 +1,64 @@
+﻿<Window x:Class="WSRDemo2019.Users.AddUserDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WSRDemo2019.Users"
+        mc:Ignorable="d"
+        Title="AddUserDialog" Height="450" Width="600">
+    <Grid>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <StackPanel>
+                    <GroupBox Header="Логин">
+                        <TextBox x:Name="Login"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Фамлия">
+                        <TextBox x:Name="Last"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Имя">
+                        <TextBox x:Name="First"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Отчетсво">
+                        <TextBox x:Name="Middle"></TextBox>
+                    </GroupBox>
+                    <GroupBox Header="Требование к навыкам" BorderBrush="Black" Height="auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Header="Навыки Продаж">
+                                <TextBox x:Name="Sell"></TextBox>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1" Header="Возражения">
+                                <TextBox x:Name="Work"></TextBox>
+                            </GroupBox>
+                            <GroupBox Grid.Column="2" Header="Продукты компании">
+                                <TextBox x:Name="Items"></TextBox>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Пароль">
+                        <TextBox x:Name="Pass"></TextBox>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Click="AddNewUser" IsDefault="True">Добавить</Button>
+                <Button Grid.Column="1" IsCancel="True" Style="{StaticResource Red}">Отмена</Button>
+            </Grid>
+        </Grid>
+      
+    </Grid>
+</Window>

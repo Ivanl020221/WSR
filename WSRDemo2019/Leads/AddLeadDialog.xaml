@@ -50,7 +50,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button IsDefault="True" Click="AddLead">Добавить</Button>
-            <Button IsCancel="True" Grid.Column="1">Отмена</Button>
+            <Button IsCancel="True" Grid.Column="1" Style="{StaticResource Red}">Отмена</Button>
         </Grid>
     </Grid>
 </Window>

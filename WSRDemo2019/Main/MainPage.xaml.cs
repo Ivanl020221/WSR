@@ -54,5 +54,17 @@ namespace WSRDemo2019.Main
                 MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        private void GoToListUser(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new Users.UserList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.HelpLink, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
