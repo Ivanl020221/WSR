@@ -23,16 +23,13 @@ namespace WSRDemo2019.Leads
         user2Entities context = new user2Entities();
 
         Lead Lead { get; set; }
-
         List<string> Calls { get; set; }
-
         public LeadInfo(Lead lead)
         {
             this.Lead = lead;
             InitializeComponent();
             LoadData();
         }
-
         public void LoadData()
         {
             try
